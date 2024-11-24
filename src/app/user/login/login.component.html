@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="register">
+        <div class="register-title">
+            <h2 class="title">Login</h2>
+            <p>Great to have you back!</p>
+        </div>
+        <div class="register-form">
+            <form #form="ngForm" (ngSubmit)="login(form)">
+                <div class="email">
+                    <input  [class]=" inputEmail.touched && inputEmail.errors?.['required'] ? 'invalid' : ''" type="email" name="email" placeholder="Email Address" ngModel #inputEmail="ngModel" required
+                        email>
+                </div>
+                @if(inputEmail.touched){
+                <div>
+                    @if(inputEmail.errors?.['required']){
+                    <p class="errorMsg">Email is required</p>
+                    }
+                </div>
+                }
+                <div class="password">
+                    <input  [class]=" inputPassword.touched && inputPassword.errors?.['required'] ? 'invalid' : ''" type="password" name="password" placeholder="Password" ngModel #inputPassword="ngModel"
+                        required>
+                </div>
+                @if(inputPassword.touched){
+                    <div>
+                        @if(inputPassword.errors?.['required']){
+                        <p class="errorMsg">Password is required</p>
+                        }
+                    </div>
+                    }
+
+                <div class="btn-div">
+                    <button [disabled]="form.invalid" class="register-btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

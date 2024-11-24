@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="createGift">
+        <div class="create-title">
+            <h2 class="title">Create</h2>
+            <p>Create gift post and sell it!</p>
+        </div>
+        <div class="create-form">
+            <form #form="ngForm" (ngSubmit)="create(form)">
+                <label for="title">Title:</label>
+                <input [class]="inputTitle.touched && (inputTitle.errors?.['required'] || (inputTitle.errors?.['minlength'])) ? 'invalid' : ''" type="text" id="title" name="title" ngModel #inputTitle="ngModel" minlength="2" required >
+
+                @if(inputTitle.touched){
+                    <div>
+                        @if(inputTitle.errors?.['required']){
+                            <p class="errorMsg">Title is required</p> 
+                        }
+
+                        @if(inputTitle.errors?.['minlength']){
+                            <p class="errorMsg">Title must be at least 2 characters </p> 
+                        }
+                    </div>
+                }
+
+                <label for="price">Price:</label>
+                <input [class]="inputPrice.touched && (inputPrice.errors?.['required'] || (inputPrice.errors?.['min'])) ? 'invalid' : ''"
+                type="number" id="price" name="price" ngModel #inputPrice="ngModel" min="1" required>
+
+                
+                @if(inputPrice.touched){
+                    <div>
+                        @if(inputPrice.errors?.['required']){
+                            <p class="errorMsg">Price is required</p> 
+                        }
+
+                        @if(inputPrice.errors?.['min']){
+                            <p class="errorMsg">Price must be positive number</p> 
+                        }
+                    </div>
+                }
+
+                <label for="description">Description:</label>
+                <input  [class]="inputDescription.touched && (inputDescription.errors?.['required'] || (inputDescription.errors?.['maxlength'])) ? 'invalid' : ''"
+                 type="text" id="description" name="description" ngModel #inputDescription="ngModel"  maxlength="100" required>
+
+                @if(inputDescription.touched){
+                    <div>
+                        @if(inputDescription.errors?.['required']){
+                            <p class="errorMsg">Description is required</p> 
+                        }
+
+                        @if(inputDescription.errors?.['maxlength']){
+                            <p class="errorMsg">Description must be maximum 100 characters </p> 
+                        }
+                    </div>
+                }
+
+                <label for="category">Category:</label>
+                <select [class]="inputCategory.touched && inputCategory.errors?.['required'] ? 'invalid' : ''"
+                 ngModel #inputCategory="ngModel" required name="category" id="category">                  
+                    <option value="Women">Women</option>
+                    <option value="Men">Men</option>
+                    <option value="Children">Children</option>
+                </select>
+
+                @if(inputCategory.touched){
+                    <div>
+                        @if(inputCategory.errors?.['required']){
+                            <p class="errorMsg">Category is required</p> 
+                        }
+                    </div>
+                }
+
+                <label for="delivery">Delivery in days:</label>
+                <input [class]="inputDelivery.touched && (inputDelivery.errors?.['required'] || (inputDelivery.errors?.['min'])) ? 'invalid' : ''" 
+                 type="number" id="delivery" name="delivery" ngModel #inputDelivery="ngModel" min="1" required>
+
+                @if(inputDelivery.touched){
+                    <div>
+                        @if(inputDelivery.errors?.['required']){
+                            <p class="errorMsg">Delivery is required</p> 
+                        }
+
+                        @if(inputDelivery.errors?.['min']){
+                            <p class="errorMsg">Delivery must be positive number</p> 
+                        }
+                    </div>
+                }
+
+                <label for="imageUrl">Image URL:</label>
+                <input type="url" id="imageUrl" name="imageUrl" ngModel #inputImageUrl="ngModel" required appImageUrl>
+
+                @if(inputImageUrl.touched){
+                    <div>                      
+                        @if(inputImageUrl.errors?.['invalidImageUrl']){
+                            <p class="errorMsg">Invalid URL address</p> 
+                        }
+                    </div>
+                }
+
+                <div class="btn-div">
+                    <button [disabled]="form.invalid" class="create-btn">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

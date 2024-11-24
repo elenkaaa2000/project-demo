@@ -1,0 +1,123 @@
+.container {
+    display: flex;
+    height: 80vh;
+    /* Full viewport height */
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.image {
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.gift-details {
+    flex: 1;
+    /* Takes the other half of the page */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    /* Optional background */
+}
+
+.gift-details h2 {
+    margin-bottom: 10px;
+    font-size: 35px;
+}
+
+.gift-details p {
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+.message{
+    margin: 5px 0;
+    font-size: 20px;
+    color: #360550;
+}
+
+.action-btn {
+    text-align: center;
+    margin: 15px 0;
+  }
+  
+  .action-btn button {
+    padding: 10px 20px;
+    margin-left: 15px;
+    background: linear-gradient(135deg, #bd6dcd, #360550);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .action-btn button::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.5s;
+  }
+  
+  .action-btn button:hover {
+    background-color: #0056b3;
+  }
+  
+  .action-btn button:hover::before {
+    left: 100%;
+  }
+  .action-btn:active {
+    transform: scale(0.97);
+  }
+  
+  
+  .action-btn a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  /* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image img {
+        max-width: 100%;
+    }
+
+    .gift-details {
+        text-align: center;
+    }
+
+    .action-btn {
+        justify-content: center;
+    }
+}

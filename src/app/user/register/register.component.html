@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="register">
+        <div class="register-title">
+            <h2 class="title">Register</h2>
+            <p>Join our team! Sell you gifts and make people happy!</p>
+        </div>
+        <div class="register-form">
+            <form [formGroup]="form" (ngSubmit)="register()">
+                <div class="username">
+                    <label for="username">Username</label>
+                    <input [class]="inputRequired('username') || inputCorrectLength('username') ? 'invalid' : ''"
+                        type="username" name="username" formControlName="username">
+                </div>
+                @if(usernameControl?.touched){
+                <div>
+                    @if(usernameControl?.errors?.['required']){
+                    <p class="errorMsg">Username is required</p>
+                    }
+
+                    @if(usernameControl?.errors?.['minlength']){
+                    <p class="errorMsg">Username must be at least 5 characters</p>
+                    }
+                </div>
+                }
+
+                <div class="email">
+                    <label for="email">Email address</label>
+                    <input
+                        [class]="inputRequired('email') || inputCorrectLength('email') || correctEmail ? 'invalid' : ''"
+                        type="email" name="email" formControlName="email">
+                </div>
+                @if(emailControl?.touched){
+                <div>
+                    @if(emailControl?.errors?.['required']){
+                    <p class="errorMsg">Email address is required</p>
+                    }
+
+                    @if(emailControl?.errors?.['minlength']){
+                    <p class="errorMsg">Email address must be at least 5 characters</p>
+                    }
+
+                    @if(emailControl?.errors?.['email']){
+                    <p class="errorMsg">Incorrect email adress</p>
+                    }
+                </div>
+                }
+
+
+                <div class="tel">
+                    <label for="tel">Mobile phone</label>
+                    <input [class]="inputRequired('tel') ? 'invalid' : ''" type="number" name="tel"
+                        formControlName="tel">
+                </div>
+
+                @if(telControl?.touched){
+                <div>
+                    @if(telControl?.errors?.['required']){
+                    <p class="errorMsg">Phone number is required</p>
+                    }
+                </div>
+                }
+
+                <div formGroupName="passGroup">
+                    <div class="password">
+                        <label for="password">Password</label>
+                        <input
+                            [class]="(passwordControl?.touched && passwordControl?.errors?.['required']) || (passwordControl?.touched && passwordControl?.errors?.['minlength']) ? 'invalid' : ''"
+                            type="password" name="password" formControlName="password">
+                    </div>
+
+                    @if(passwordControl?.touched){
+                    <div>
+                        @if(passwordControl?.errors?.['required']){
+                        <p class="errorMsg">Password is required</p>
+                        }
+
+                        @if(passGroup?.errors?.['macthPasswordsValidator']){
+                            <p class="errorMsg">Passwords don't match</p>
+                            }
+                    </div>
+                    }
+
+                    <div class="password">
+                        <label for="password">Repeat password</label>
+                        <input
+                            [class]="(rePassControl?.touched && rePassControl?.errors?.['required']) || (rePassControl?.touched && rePassControl?.errors?.['minlength'])  ? 'invalid' : ''"
+                            type="password" name="rePassword" formControlName="rePassword">
+                    </div>
+                    @if(rePassControl?.touched){
+                    <div>
+                        @if(rePassControl?.errors?.['required']){
+                        <p class="errorMsg">Repeat password, please!</p>
+                        }                       
+                    </div>
+                    }
+
+                </div>
+
+                <div class="btn-div">
+                    <button [disabled]="form.invalid" class="register-btn">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
