@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'about', component: AboutPageComponent },
     { path: 'catalog', component: CatalogComponent },
-    { path: 'create', component: CreateGiftComponent },
+    { path: 'create', component: EditGiftComponent },
     { path: '404', component: ErrorComponent },
     { path: '**', redirectTo: '/404', pathMatch: 'full' }
 
