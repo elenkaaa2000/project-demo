@@ -1,0 +1,54 @@
+/* Add Article Section */
+.add-article {
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.add-article-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #360550;
+    background: linear-gradient(135deg, #360550, #bd6dcd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form label {
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus {
+    border-color: #bd6dcd;
+    outline: none;
+}
+
+form .btn button {
+    width: fit-content;
+    margin: 0 auto;
+}

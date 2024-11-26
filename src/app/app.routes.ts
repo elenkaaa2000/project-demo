@@ -9,6 +9,8 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { CreateGiftComponent } from './gift/create-gift/create-gift.component';
 import { EditGiftComponent } from './gift/edit-gift/edit-gift.component';
 import { GiftDetailsComponent } from './gift/gift-details/gift-details.component';
+import { ArticlesComponent } from './blog/articles/articles.component';
+
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -17,7 +19,8 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'about', component: AboutPageComponent },
     { path: 'catalog', component: CatalogComponent },
-    { path: 'create', component: EditGiftComponent },
+    { path: 'create', component: CreateGiftComponent },
+    { path: 'blog', component: ArticlesComponent },
     { path: '404', component: ErrorComponent },
     { path: '**', redirectTo: '/404', pathMatch: 'full' }
 
