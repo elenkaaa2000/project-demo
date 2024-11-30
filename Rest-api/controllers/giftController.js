@@ -13,7 +13,7 @@ function newGift(title, description, category, delivery, price, imageUrl, userId
     const limit = Number(req.query.limit) || 0;
 
     giftModel.find()
-        .sort({ created_at: -1 })
+        .sort({ createdAt: -1 })
         .limit(limit)
         .populate()
         .then(gifts => {
@@ -24,7 +24,7 @@ function newGift(title, description, category, delivery, price, imageUrl, userId
 
 function getAllGifts(req, res, next) {
     giftModel.find()
-        .populate('ownerId')
+        .populate('userId')
         .then(gifts => res.json(gifts))
         .catch(next);
 }

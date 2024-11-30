@@ -40,7 +40,7 @@ const giftShema = new mongoose.Schema({
             ref: 'User'
         }
     ],
-    ownerId: {
+    userId: {
         type: ObjectId,
         ref: 'User'
     }

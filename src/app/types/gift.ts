@@ -8,5 +8,6 @@ export interface Gift {
     imageUrl: string,
     buyingList: string[],
     likesList: string[],
-    owner: string
+    userId: string
 }
+

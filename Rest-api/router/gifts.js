@@ -8,7 +8,7 @@ const { giftController } = require('../controllers')
 router.get('/', giftController.getLatestsGifts);
 router.get('/catalog', giftController.getAllGifts);
 router.get('/:giftId', giftController.getGiftbyId);
-router.post('/:giftId', auth(), giftController.createGift);
+router.post('/', auth(), giftController.createGift);
 router.delete('/:giftId/delete', auth(), giftController.deleteGift);
 router.put('/:giftId/edit', auth(), giftController.editGift)
 
