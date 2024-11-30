@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { macthPasswordsValidator } from '../../utils/match-passwords.validator';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { UserService } from '../user.service';
 })
 export class RegisterComponent {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
   form = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(5)]),
     email: new FormControl('', [Validators.required, Validators.minLength(10), Validators.email]),
@@ -57,14 +58,13 @@ export class RegisterComponent {
       return
     }
 
-    const userData:any = {
-      username: this.usernameControl?.value,
-      email: this.emailControl?.value,
-      tel: this.telControl?.value,
-      password: this.passwordControl?.value
-    }    
-   
-     this.userService.registerUser(userData)
+    const { username, email, tel, passGroup: { password, rePassword } = {} } = this.form.value;
+    this.userService
+    .register(username!, email!, tel!, password!, rePassword!)
+    .subscribe(() => {
+      this.router.navigate(['/'])
+    })
+
 
   }
 }

@@ -26,12 +26,12 @@
     color: #333;
 }
 
-.title h2 {
+ h2 {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
     background: linear-gradient(135deg, #360550, #bd6dcd);
- 
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
