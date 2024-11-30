@@ -32,13 +32,7 @@ function getAllGifts(req, res, next) {
 function getGiftbyId(req, res, next) {
     const { giftId } = req.params;
 
-    giftModel.findById(giftId)
-        .populate({
-            path : 'gifts',
-            populate : {
-              path : 'userId'
-            }
-          })
+    giftModel.findById(giftId)      
         .then(gift => res.json(gift))
         .catch(next);
 }

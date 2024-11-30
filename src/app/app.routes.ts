@@ -19,6 +19,10 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'about', component: AboutPageComponent },
     { path: 'catalog', component: CatalogComponent },
+    { path: 'gifts', children:[
+        {path: 'details/:giftId', component: GiftDetailsComponent},
+        {path: ':giftId/edit', component: EditGiftComponent},  
+    ] },
     { path: 'create', component: CreateGiftComponent },
     { path: 'blog', component: ArticlesComponent },
     { path: '404', component: ErrorComponent },

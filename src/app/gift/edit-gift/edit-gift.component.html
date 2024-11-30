@@ -6,8 +6,8 @@
         </div>
         <div class="create-form">
             <form #form="ngForm" (ngSubmit)="edit(form)">
-                <label for="title">Title:</label>
-                <input [class]="inputTitle.touched && (inputTitle.errors?.['required'] || (inputTitle.errors?.['minlength'])) ? 'invalid' : ''" type="text" id="title" name="title" ngModel #inputTitle="ngModel" minlength="2" required >
+                <label for="title">Title: </label>
+                <input [class]="inputTitle.touched && (inputTitle.errors?.['required'] || (inputTitle.errors?.['minlength'])) ? 'invalid' : ''" type="text" id="title" name="title" value="{{gift.title}}" ngModel #inputTitle="ngModel" minlength="2" required >
 
                 @if(inputTitle.touched){
                     <div>
@@ -23,7 +23,7 @@
 
                 <label for="price">Price:</label>
                 <input [class]="inputPrice.touched && (inputPrice.errors?.['required'] || (inputPrice.errors?.['min'])) ? 'invalid' : ''"
-                type="number" id="price" name="price" ngModel #inputPrice="ngModel" min="1" required>
+                type="number" id="price" value="{{gift.price}}" name="price" ngModel #inputPrice="ngModel" min="1" required>
 
                 
                 @if(inputPrice.touched){
@@ -40,7 +40,7 @@
 
                 <label for="description">Description:</label>
                 <input  [class]="inputDescription.touched && (inputDescription.errors?.['required'] || (inputDescription.errors?.['maxlength'])) ? 'invalid' : ''"
-                 type="text" id="description" name="description" ngModel #inputDescription="ngModel"  maxlength="100" required>
+                 type="text" id="description" name="description" value="{{gift.description}}" ngModel #inputDescription="ngModel"  maxlength="100" required>
 
                 @if(inputDescription.touched){
                     <div>
@@ -56,7 +56,7 @@
 
                 <label for="category">Category:</label>
                 <select [class]="inputCategory.touched && inputCategory.errors?.['required'] ? 'invalid' : ''"
-                 ngModel #inputCategory="ngModel" required name="category" id="category">                  
+                 ngModel #inputCategory="ngModel" required value="{{gift.category}}" name="category" id="category">                  
                     <option value="Women">Women</option>
                     <option value="Men">Men</option>
                     <option value="Children">Children</option>
@@ -72,7 +72,7 @@
 
                 <label for="delivery">Delivery in days:</label>
                 <input [class]="inputDelivery.touched && (inputDelivery.errors?.['required'] || (inputDelivery.errors?.['min'])) ? 'invalid' : ''" 
-                 type="number" id="delivery" name="delivery" ngModel #inputDelivery="ngModel" min="1" required>
+                 type="number" id="delivery" name="delivery" value="{{gift.delivery}}" ngModel #inputDelivery="ngModel" min="1" required>
 
                 @if(inputDelivery.touched){
                     <div>
@@ -87,7 +87,7 @@
                 }
 
                 <label for="imageUrl">Image URL:</label>
-                <input type="url" id="imageUrl" name="imageUrl" ngModel #inputImageUrl="ngModel" required appImageUrl>
+                <input type="url" id="imageUrl" name="imageUrl" value="{{gift.imageUrl}}" ngModel #inputImageUrl="ngModel" required appImageUrl>
 
                 @if(inputImageUrl.touched){
                     <div>                      
