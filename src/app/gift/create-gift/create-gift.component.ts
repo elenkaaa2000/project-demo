@@ -22,9 +22,7 @@ export class CreateGiftComponent {
 
     const { title, category, description, price, delivery, imageUrl } = form.value
 
-    this.apiService.createGift(title, category, description, price, delivery, imageUrl).subscribe((data) => {
-      console.log(data);
-      
+    this.apiService.createGift(title, category, description, price, delivery, imageUrl).subscribe(() => {      
       this.router.navigate(['/catalog'])
     })
 

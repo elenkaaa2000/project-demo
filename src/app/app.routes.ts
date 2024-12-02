@@ -24,7 +24,7 @@ export const routes: Routes = [
         {path: ':giftId/edit', component: EditGiftComponent},  
     ] },
     { path: 'create', component: CreateGiftComponent },
-    { path: 'blog', component: ArticlesComponent },
+   
     { path: '404', component: ErrorComponent },
     { path: '**', redirectTo: '/404', pathMatch: 'full' }
 

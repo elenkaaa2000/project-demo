@@ -34,11 +34,11 @@ function getGiftbyId(req, res, next) {
 
 function createGift(req, res, next) {
     const { _id: userId } = req.user;
-    const { title, description, category, delivery, price, imageUrl } = req.body;       
+    const { title, description, category, delivery, price, imageUrl } = req.body;
 
-        giftModel.create({ title, description, category, delivery, price, imageUrl, userId }).then((gift) => {
-            res.status(200).json(gift)
-        }).catch(next)
+    giftModel.create({ title, description, category, delivery, price, imageUrl, userId }).then((gift) => {
+        res.status(200).json(gift)
+    }).catch(next)
 
 }
 
@@ -96,9 +96,15 @@ function buy(req, res, next) {
 
     console.log('buy')
 
-    giftModel.updateOne({ _id: giftId }, { $addToSet: { buyingList: userId } }, { new: true })
-        .then(() => res.status(200).json({ message: 'Bougth successful!' }))
-        .catch(next)
+    /*giftModel.updateOne({ _id: giftId }, { $addToSet: { buyingList: userId } }, { new: true })
+        return res.status(200).json()*/
+
+    const gift = giftModel.findById(giftId);
+    gift.buyingList.push(userId)
+    gift.save()
+    return res.json(gift)
+
+    /* giftModel.findOneAndUpdate({_id: giftId}, {$addToSet: {buyingList: userId}}).then((gift)=>res.status(200).json(gift)).catch(next)*/
 }
 
 module.exports = {
@@ -107,6 +113,6 @@ module.exports = {
     createGift,
     deleteGift,
     like,
-    getGiftbyId, editGift, 
+    getGiftbyId, editGift,
     buy
 }

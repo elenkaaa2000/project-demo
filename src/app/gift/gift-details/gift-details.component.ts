@@ -16,7 +16,9 @@ import { AuthComponent } from '../../auth/auth.component';
 export class GiftDetailsComponent implements OnInit {
   gift = {} as Gift;
   isOwner = false;
-  
+  isBougth = false;
+  isLiked = false;
+
   get isLoggedIn(): boolean {
     return this.userService.isLogged
   }
@@ -29,9 +31,10 @@ export class GiftDetailsComponent implements OnInit {
       this.gift = gift
 
       this.userService.getUserProfile().subscribe((user) => {
-
-
         this.isOwner = user._id == this.gift.userId;
+              
+        this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
+        this.isLiked = this.gift.likesList.some(x => x.toString() == user._id);
       });
     })
   }
@@ -45,24 +48,18 @@ export class GiftDetailsComponent implements OnInit {
 
   likeGift() {
     const id = this.route.snapshot.params['giftId'];
-    this.appService.likeGift(id).subscribe(() => {
-      this.router.navigate([`gifts/details/${id}`])
+    this.appService.likeGift(id).subscribe((gift) => {
+      console.log(gift);
+      
+      this.router.navigate([this.router.url])
     })
   }
 
   buyGift() {
     const id = this.route.snapshot.params['giftId'];
     this.appService.buyGift(id).subscribe(() => {
-      this.router.navigate(['gifts/details/${id}'])
+      this.router.navigate([this.router.url])
     })
-  }
-
-  get isLiked(): boolean {
-    return true
-  }
-
-  get isBougth(): boolean {
-    return true
   }
 
 }
