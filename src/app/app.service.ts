@@ -28,5 +28,20 @@ export class AppService {
     return this.http.get<Gift>('/api/gifts/details/' + giftId)
   }
 
+  updateGiftById(giftId: string, title: string, category: string, description: string, price: string, delivery: string, imageUrl: string) {
+    const payload = { title, category, description, price, delivery, imageUrl }
+    return this.http.put<Gift>(`/api/gifts/${giftId}/edit`, payload)
+  }
 
+  deleteGiftById(giftId:string){
+    return this.http.delete(`/api/gifts/${giftId}/delete`)
+  }
+
+  likeGift(giftId:string){
+    return this.http.put<Gift>(`/api/gifts/${giftId}/like`, null)
+  }
+
+  buyGift(giftId:string){
+    return this.http.put<Gift>(`/api/gifts/${giftId}/buy`, null)
+  }
 }

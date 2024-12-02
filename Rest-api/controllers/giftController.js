@@ -1,15 +1,9 @@
 const { userModel } = require('../models');
 const { giftModel } = require('../models');
 
-function newGift(title, description, category, delivery, price, imageUrl, userId) {
-    return giftModel.create({ title, description, category, delivery, price, imageUrl, userId })
-        .then(gift => {
-            return Promise.all(
-                [userModel.updateOne({ _id: userId }, { $push: { gifts: gift._id }, /*$addToSet: { themes: themeId }*/ })])
-        })
-}
 
- function getLatestsGifts(req, res, next) {
+
+function getLatestsGifts(req, res, next) {
     const limit = Number(req.query.limit) || 0;
 
     giftModel.find()
@@ -32,7 +26,7 @@ function getAllGifts(req, res, next) {
 function getGiftbyId(req, res, next) {
     const { giftId } = req.params;
 
-    giftModel.findById(giftId)      
+    giftModel.findById(giftId)
         .then(gift => res.json(gift))
         .catch(next);
 }
@@ -40,10 +34,12 @@ function getGiftbyId(req, res, next) {
 
 function createGift(req, res, next) {
     const { _id: userId } = req.user;
-    const { title, description, category, delivery, price, imageUrl } = req.body;
+    const { title, description, category, delivery, price, imageUrl } = req.body;       
 
-    newGift(title, description, category, delivery, price, imageUrl, userId)
-        .catch(next);
+        giftModel.create({ title, description, category, delivery, price, imageUrl, userId }).then((gift) => {
+            res.status(200).json(gift)
+        }).catch(next)
+
 }
 
 function editGift(req, res, next) {
@@ -71,7 +67,7 @@ function deleteGift(req, res, next) {
     Promise.all([
         giftModel.findOneAndDelete({ _id: giftId, userId }),
         userModel.findOneAndUpdate({ _id: userId }, { $pull: { gifts: giftId } }),
-       
+
     ])
         .then(([deletedOne, _, __]) => {
             if (deletedOne) {
@@ -94,11 +90,23 @@ function like(req, res, next) {
         .catch(next)
 }
 
+function buy(req, res, next) {
+    const { giftId } = req.params;
+    const { _id: userId } = req.user;
+
+    console.log('buy')
+
+    giftModel.updateOne({ _id: giftId }, { $addToSet: { buyingList: userId } }, { new: true })
+        .then(() => res.status(200).json({ message: 'Bougth successful!' }))
+        .catch(next)
+}
+
 module.exports = {
     getLatestsGifts,
     getAllGifts,
     createGift,
     deleteGift,
     like,
-    getGiftbyId,editGift
+    getGiftbyId, editGift, 
+    buy
 }

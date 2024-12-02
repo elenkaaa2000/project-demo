@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment.development';
 import { BehaviorSubject, tap } from 'rxjs';
-import { AuthUser } from '../types/user';
+import { AuthUser, User } from '../types/user';
 
 
 @Injectable({

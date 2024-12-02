@@ -3,7 +3,7 @@ export interface AuthUser {
     email: string,
     tel: string,
     password: string,
-    id: string
+    _id: string
 }
 
 export interface User {
