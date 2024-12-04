@@ -31,7 +31,13 @@ export class GiftDetailsComponent implements OnInit {
     private router: Router,
     private userService: UserService) { }
 
+
+
   ngOnInit(): void {
+    this.loadGiftDetails()
+  }
+
+  loadGiftDetails(): void {
     this.giftId = this.route.snapshot.params['giftId'];
     this.appService.getGiftById(this.giftId).subscribe((gift) => {
       this.gift = gift
@@ -47,25 +53,20 @@ export class GiftDetailsComponent implements OnInit {
 
   deleteGift() {
 
-    this.appService.deleteGiftById(this.giftId).subscribe({
-      next: () => this.router.navigate(['/catalog']),
-      error: (err: any) => console.log('Error deleting', err)
+    this.appService.deleteGiftById(this.giftId).subscribe(()=>{
+      this.router.navigate(['/catalog'])
     });
   }
 
   likeGift() {
-
-    this.appService.likeGift(this.giftId).subscribe((gift) => {   
-      this.isLiked = true
-      this.router.navigate([this.router.url])
+    this.appService.likeGift(this.giftId).subscribe(() => {
+      this.loadGiftDetails()
     })
   }
 
   buyGift() {
-
     this.appService.buyGift(this.giftId).subscribe(() => {
-      this.isBougth = true
-      this.router.navigate([this.router.url])
+      this.loadGiftDetails()
     })
   }
 
