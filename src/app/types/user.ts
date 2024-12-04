@@ -1,9 +1,15 @@
+import { Gift } from "./gift";
+
 export interface AuthUser {
     username: string,
     email: string,
     tel: string,
     password: string,
-    _id: string
+    _id: string,
+    gifts: Gift[],
+    likedGifts: Gift[],
+    boughtGifts: Gift[]
+
 }
 
 export interface User {

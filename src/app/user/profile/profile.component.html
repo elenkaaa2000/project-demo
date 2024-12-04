@@ -1,20 +1,48 @@
 <div class="container">
     <div class="profile">
-    <div class="title">
-        <img src='user.jpg' alt="">
-        <h3>Profile</h3>
-        <div class="info">
-            <li>Username: {{user?.username}}</li>
-            <li>Email: {{user?.email}}</li>
-            <li>Mobile phone: {{user?.tel}}</li>
-        </div>
-    </div>
-    </div>
-    <div class="gifts">
-        <h3>My gifts</h3>
-        <div class="all">
-            //TODO: 
+        <div class="title">
+            <img src='user.jpg' alt="">
+            <h3>Profile page</h3>
+            <div class="info">
+                <li>Username: {{user?.username}}</li>
+                <li>Email: {{user?.email}}</li>
+                <li>Mobile phone: {{user?.tel}}</li>
+                <div class="btn">
+                    <button>
+                        <a routerLink="">Edit profile</a>
+                    </button>
+                    <button>
+                        <a routerLink="/shop-card">Shopping card</a>
+                    </button>
+                    <button>
+                        <a routerLink="/wishlist">Wishlist</a>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div>
+        <h3 class="gifts-title">My gifts</h3>
+        <div class="gifts">
+
+            @for (item of user?.gifts; track $index) {
+            <div class="product">
+                <div class="product-img">
+                    <img src="{{item?.imageUrl}}" alt="">
+                </div>
+                <div class="product-info">
+                    <h6 class="title">{{item?.title}}</h6>
+                    <span class="price">{{item?.price}} lv.</span>
+                </div>
+                <div class="btn">
+                    <button>
+                        <a routerLink="/gifts/details/{{item?._id}}">Details</a>
+                    </button>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
 </div>

@@ -11,7 +11,7 @@ router.post('/', auth(), giftController.createGift);
 router.get('/details/:giftId', giftController.getGiftbyId);
 router.delete('/:giftId/delete', auth(), giftController.deleteGift);
 router.put('/:giftId/edit', auth(), giftController.editGift);
-router.put('/:giftId/like', auth(), giftController.like);
+router.post('/:giftId/like', auth(), giftController.like);
 router.put('/:giftId/buy', auth(), giftController.buy);
 
 

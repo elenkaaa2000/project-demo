@@ -10,6 +10,7 @@ import { CreateGiftComponent } from './gift/create-gift/create-gift.component';
 import { EditGiftComponent } from './gift/edit-gift/edit-gift.component';
 import { GiftDetailsComponent } from './gift/gift-details/gift-details.component';
 import { ArticlesComponent } from './blog/articles/articles.component';
+import { ShoppingCardComponent } from './user/profile/shopping-card/shopping-card.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'profile', component: ProfileComponent },
+    {path: 'shop-card', component: ShoppingCardComponent},
     { path: 'about', component: AboutPageComponent },
     { path: 'catalog', component: CatalogComponent },
     { path: 'gifts', children:[

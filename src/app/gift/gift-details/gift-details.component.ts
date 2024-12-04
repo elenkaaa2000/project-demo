@@ -19,20 +19,26 @@ export class GiftDetailsComponent implements OnInit {
   isBougth = false;
   isLiked = false;
 
+  private giftId!: string;
+
   get isLoggedIn(): boolean {
     return this.userService.isLogged
   }
 
-  constructor(private appService: AppService, private route: ActivatedRoute, private router: Router, private userService: UserService) { }
+  constructor(
+    private appService: AppService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['giftId'];
-    this.appService.getGiftById(id).subscribe((gift) => {
+    this.giftId = this.route.snapshot.params['giftId'];
+    this.appService.getGiftById(this.giftId).subscribe((gift) => {
       this.gift = gift
 
       this.userService.getUserProfile().subscribe((user) => {
         this.isOwner = user._id == this.gift.userId;
-              
+
         this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
         this.isLiked = this.gift.likesList.some(x => x.toString() == user._id);
       });
@@ -40,24 +46,25 @@ export class GiftDetailsComponent implements OnInit {
   }
 
   deleteGift() {
-    const id = this.route.snapshot.params['giftId'];
-    this.appService.deleteGiftById(id).subscribe(() => {
-      this.router.navigate(['/catalog'])
-    })
+
+    this.appService.deleteGiftById(this.giftId).subscribe({
+      next: () => this.router.navigate(['/catalog']),
+      error: (err: any) => console.log('Error deleting', err)
+    });
   }
 
   likeGift() {
-    const id = this.route.snapshot.params['giftId'];
-    this.appService.likeGift(id).subscribe((gift) => {
-      console.log(gift);
-      
+
+    this.appService.likeGift(this.giftId).subscribe((gift) => {   
+      this.isLiked = true
       this.router.navigate([this.router.url])
     })
   }
 
   buyGift() {
-    const id = this.route.snapshot.params['giftId'];
-    this.appService.buyGift(id).subscribe(() => {
+
+    this.appService.buyGift(this.giftId).subscribe(() => {
+      this.isBougth = true
       this.router.navigate([this.router.url])
     })
   }

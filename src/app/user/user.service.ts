@@ -46,4 +46,8 @@ export class UserService {
     return this.http.post('/api/logout', {}).pipe(tap((user)=>this.user$$.next(null)))
   }
 
+ removeItemFromCard(id:string){
+  return this.http.put(`/api/users/profile/${id}`, {})
+ }
+
 }

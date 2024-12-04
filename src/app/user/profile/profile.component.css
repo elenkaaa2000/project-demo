@@ -1,93 +1,254 @@
-.container {
+/*.container {
     display: flex;
     align-items: center;
     padding: 34px;
-}
+}*/
+.container {
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    align-items: center;   
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    /* Adjusted for wider screens */
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 20px;
+  }
 
+
+
+/* Profile Container Styling */
 .profile {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    max-width: 380px;
-    justify-content: left;
-    text-align: center;
-    width: 100%;
-    padding: 50px 40px;
-    transition: transform 0.4s ease;
+    background-color: #fff;
+    border-radius: 15px; /* Smooth corners */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Elevated shadow effect */
+    max-width: 800px; /* Responsive width */
+    text-align: center; /* Center align content */
+    width: 100%; /* Full width */
+    padding: 40px 30px; /* Internal padding */
+    margin: 0 auto; /* Center align in parent */
+    color: #fff; /* White text for contrast */
+    position: relative;
+    overflow: hidden; /* To contain hover effects */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.gifts {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    max-width: flex;
-    justify-content: rigth;
-    margin-left: 50px;
-    text-align: center;
-    width: 100%;
-    padding: 50px 40px;
-    transition: transform 0.4s ease;
+/* Hover Effect */
+.profile:hover {
+    transform: translateY(-10px); /* Slight upward movement */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Intensify shadow */
 }
 
-/* Title Styling */
-.title h3{
-    font-size: 30px;
-    font-weight: 700;
+/* Title Section Styling */
+.profile .title img {
+    width: 120px; /* Larger profile image */    
+    height: 120px; /* Maintain square aspect ratio */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Fit image to the container */
+    margin-bottom: 20px; /* Add spacing below */
+    border: 3px solid rgba(255, 255, 255, 0.6); /* Subtle white border */
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.profile .title img:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+    border-color: rgba(255, 255, 255, 1); /* Brighten border */
+}
+
+/* Heading and Info Styling */
+.profile .title h3 {
+    font-size: 28px; /* Larger heading */
+    font-weight: bold; /* Make it stand out */
+    text-transform: uppercase; /* All caps for style */
     background: linear-gradient(135deg, #360550, #bd6dcd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; /* Clip background to text */
+    -webkit-text-fill-color: transparent; /* Make text transparent */
+    margin-bottom: 20px; /* Spacing */
 }
 
-/* Profile Image Styling */
-.title img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid #7257c2;
+.profile .info {
+    list-style: none; /* Remove bullets */
+    padding: 0; /* Reset padding */
 }
 
-/* Heading Styling */
-h3 {
-    font-size: 24px;
-    color: #7257c2;
-    margin-bottom: 10px;
+.profile .info li {
+    font-size: 16px; /* Readable size */
+    color:   #333; /* Subtle white */
+   
+    margin-bottom: 8px; /* Space between items */
+    position: relative; /* For icon placement */
+    padding-left: 25px; /* Indent text for icons */
+    text-align: left; /* Align text */
 }
 
-/* Info Styling */
-.info {
-    list-style: none;
-    padding: 0;
-}
-
-.info li {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 8px;
-    text-align: center;
+/* Add Icons Before Each List Item */
+.profile .info li::before {
+    content: '✓'; /* Checkmark icon */
+    font-size: 12px; /* Smaller icon */
+    color: #333; /* White icon */
+    position:absolute;/* Position near text */
+    left: 0; /* Align to left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    
 }
 
 /* Responsive Design */
 @media (max-width: 480px) {
-    .container {
-        padding: 15px;
-        max-width: 90%;
+    .profile {
+        padding: 20px 15px; /* Adjust padding for smaller screens */
     }
 
-    .title h3 {
-        font-size: 20px;
+    .profile .title img {
+        width: 100px; /* Smaller profile image */
+        height: 100px;
     }
 
-    .info li {
-        font-size: 14px;
+    .profile .title h3 {
+        font-size: 22px; /* Smaller heading */
     }
 
-
-    .title {
-        font-size: 22px;
+    .profile .info li {
+        font-size: 14px; /* Smaller text */
     }
+}
 
 
 
+/* Gifts Section */
+.gifts-title {
+  font-size: 25px;
+  color: #360550;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #360550, #bd6dcd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gifts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.product {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  flex: 1 1 calc(33.333% - 40px);
+  max-width: 200px;
+  margin: 10px;
+
+}
+
+.product:hover {
+  transform: translateY(-5px);
+}
+
+.product-img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+}
+
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-img img:hover {
+  transform: scale(1.1);
+}
+
+.product-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.0rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 1rem;
+  color: #28a745;
+}
+
+.btn {
+  text-align: center;
+  margin: 15px 0;
+  
+}
+
+.btn button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #bd6dcd, #360550);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin: 5px
+}
+.btn button::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.5s;
+}
+
+.btn button:hover {
+    background: linear-gradient(135deg, #054c50, #6dc8cd, );
+}
+
+.btn button:hover::before {
+  left: 100%;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+
+.btn a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 576px) {
+  .product {
+    flex: 1 1 100%;
+  }
 }

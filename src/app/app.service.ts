@@ -38,7 +38,7 @@ export class AppService {
   }
 
   likeGift(giftId:string){
-    return this.http.put<Gift>(`/api/gifts/${giftId}/like`, null)
+    return this.http.post<Gift>(`/api/gifts/${giftId}/like`, null)
   }
 
   buyGift(giftId:string){

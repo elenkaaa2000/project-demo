@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  flex-direction: column;
+ flex-direction: column;
   /* Stack elements vertically */
   align-items: center;
   background-color: #ffffff;

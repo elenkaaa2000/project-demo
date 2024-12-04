@@ -1,7 +1,13 @@
+const { log } = require('@angular-devkit/build-angular/src/builders/ssr-dev-server');
 const { userModel } = require('../models');
 const { giftModel } = require('../models');
 
-
+function newGift(title, description, category, delivery, price, imageUrl, userId) {
+    return giftModel.create({ title, description, category, delivery, price, imageUrl, userId })
+        .then(gift => {
+            return userModel.updateOne({ _id: userId }, { $push: { gifts: gift._id } })
+        })
+}
 
 function getLatestsGifts(req, res, next) {
     const limit = Number(req.query.limit) || 0;
@@ -9,7 +15,7 @@ function getLatestsGifts(req, res, next) {
     giftModel.find()
         .sort({ createdAt: -1 })
         .limit(limit)
-        .populate()
+        .populate('userId')
         .then(gifts => {
             res.status(200).json(gifts)
         })
@@ -36,9 +42,9 @@ function createGift(req, res, next) {
     const { _id: userId } = req.user;
     const { title, description, category, delivery, price, imageUrl } = req.body;
 
-    giftModel.create({ title, description, category, delivery, price, imageUrl, userId }).then((gift) => {
-        res.status(200).json(gift)
-    }).catch(next)
+    newGift(title, description, category, delivery, price, imageUrl, userId)
+        .then(() => res.status(200).json())
+        .catch(next)
 
 }
 
@@ -79,15 +85,20 @@ function deleteGift(req, res, next) {
         .catch(next);
 }
 
-function like(req, res, next) {
+async function like(req, res, next) {
     const { giftId } = req.params;
     const { _id: userId } = req.user;
 
     console.log('like')
 
-    giftModel.updateOne({ _id: giftId }, { $addToSet: { likesList: userId } }, { new: true })
-        .then(() => res.status(200).json({ message: 'Liked successful!' }))
-        .catch(next)
+    /*giftModel.updateOne({ _id: giftId }, { $addToSet: { likesList: userId } })
+        .then(() => res.status(200).json({ message: 'Successful!' }))
+        .catch(next);*/
+
+    Promise.all([
+        giftModel.updateOne({ _id: giftId }, { $addToSet: { likesList: userId } }),
+        userModel.findOneAndUpdate({ _id: userId }, { $push: { likedGifts: giftId } })
+    ]).then(()=>res.status(200).json({ message: 'Successful!' })).catch(next)
 }
 
 function buy(req, res, next) {
@@ -96,16 +107,14 @@ function buy(req, res, next) {
 
     console.log('buy')
 
-    /*giftModel.updateOne({ _id: giftId }, { $addToSet: { buyingList: userId } }, { new: true })
-        return res.status(200).json()*/
-
-    const gift = giftModel.findById(giftId);
-    gift.buyingList.push(userId)
-    gift.save()
-    return res.json(gift)
-
-    /* giftModel.findOneAndUpdate({_id: giftId}, {$addToSet: {buyingList: userId}}).then((gift)=>res.status(200).json(gift)).catch(next)*/
+    Promise.all([
+        giftModel.updateOne({ _id: giftId }, { $addToSet: { buyingList: userId } }),
+        userModel.findOneAndUpdate({ _id: userId }, { $push: { boughtGifts: giftId } })
+    ]).then(()=>res.status(200).json({ message: 'Successful!' })).catch(next)
 }
+
+
+
 
 module.exports = {
     getLatestsGifts,
@@ -113,6 +122,7 @@ module.exports = {
     createGift,
     deleteGift,
     like,
-    getGiftbyId, editGift,
+    getGiftbyId,
+    editGift,
     buy
 }

@@ -30,7 +30,15 @@ const userSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "Gift"
     }],
-   
+    likedGifts: [{
+        type: ObjectId,
+        ref: "Gift"
+    }],
+    boughtGifts: [{
+        type: ObjectId,
+        ref: "Gift"
+    }]
+
 }, { timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {
