@@ -87,11 +87,11 @@
                 }
 
                 <label for="imageUrl">Image URL:</label>
-                <input [class]="imageUrlControl?.touched && (imageUrlControl?.errors?.['required'] || (imageUrlControl?.errors?.['invalidImageUrl'])) ? 'invalid' : ''"  type="url" id="imageUrl" name="imageUrl" formControlName="imageUrl">
+                <input  [class]="imageUrlControl?.touched && (imageUrlControl?.errors?.['required'] || (imageUrlControl?.errors?.['imageUrlValidator'])) ? 'invalid' : ''"  type="url" id="imageUrl" name="imageUrl" formControlName="imageUrl">
 
                 @if(imageUrlControl?.touched){
                     <div>                      
-                        @if(imageUrlControl?.errors?.['invalidImageUrl']){
+                        @if(imageUrlControl?.errors?.['imageUrlValidator']){
                             <p class="errorMsg">Invalid URL address</p> 
                         }
                     </div>

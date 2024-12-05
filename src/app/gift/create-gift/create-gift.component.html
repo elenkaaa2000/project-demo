@@ -87,7 +87,7 @@
                 }
 
                 <label for="imageUrl">Image URL:</label>
-                <input type="url" id="imageUrl" name="imageUrl" ngModel #inputImageUrl="ngModel" required appImageUrl>
+                <input type="url" id="imageUrl" name="imageUrl" ngModel #inputImageUrl="ngModel" required [appImageUrl]="[]">
 
                 @if(inputImageUrl.touched){
                     <div>                      

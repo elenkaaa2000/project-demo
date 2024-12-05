@@ -110,13 +110,23 @@ function removeItemFromCard(req, res, next) {
     const { giftId } = req.params;
 
     Promise.all([
-        userModel.findByIdAndUpdate({_id: userId}, { $pull: { boughtGifts: giftId } }),
-        giftModel.findByIdAndUpdate(giftId, {$pull: {buyingList: userId}})
-    ])    
-    .then((updated)=>{
-        res.status(200).json(updated)
-    })
-    .catch(next)
+        userModel.findByIdAndUpdate({ _id: userId }, { $pull: { boughtGifts: giftId } }),
+        giftModel.findByIdAndUpdate(giftId, { $pull: { buyingList: userId } })
+    ])
+        .then((updated) => {
+            res.status(200).json(updated)
+        })
+        .catch(next)
+}
+
+function clearShopCard(req, res, next) {
+    const { _id: userId } = req.user;
+
+    
+    userModel.findByIdAndUpdate({ _id: userId }, { $set: { boughtGifts: [] } }, {new: true})
+        .then((updatedUser) => {
+            res.status(200).json(updatedUser)
+        }).catch(next)
 }
 
 
@@ -126,5 +136,6 @@ module.exports = {
     logout,
     getProfileInfo,
     editProfileInfo,
-    removeItemFromCard
+    removeItemFromCard,
+    clearShopCard
 }

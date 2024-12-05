@@ -47,7 +47,10 @@ export class UserService {
   }
 
  removeItemFromCard(id:string){
-  return this.http.put(`/api/users/profile/${id}`, {})
+  return this.http.put<AuthUser>(`/api/users/profile/${id}`, {})
  }
 
+ clearShopCard(){
+  return this.http.put<AuthUser>('/api/users/', {})
+ }
 }

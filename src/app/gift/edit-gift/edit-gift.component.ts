@@ -4,6 +4,7 @@ import { ImageUrlDirective } from '../../directives/image-url.directive';
 import { AppService } from '../../app.service';
 import { Gift, GiftDetails } from '../../types/gift';
 import { ActivatedRoute, Router } from '@angular/router';
+import { imageUrlValidator } from '../../utils/imageUrl.validator';
 
 @Component({
   selector: 'app-edit-gift',
@@ -22,7 +23,7 @@ export class EditGiftComponent implements OnInit {
     description: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     price: new FormControl('', [Validators.required, Validators.min(1)]),
     delivery: new FormControl('', [Validators.required, Validators.min(1)]),
-    imageUrl: new FormControl('', [Validators.required])
+    imageUrl: new FormControl('', [Validators.required, imageUrlValidator])
   })
 
   titleControl = this.form.get('title');

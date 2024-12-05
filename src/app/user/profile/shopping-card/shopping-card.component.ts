@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../../user.service';
 import { AuthUser } from '../../../types/user';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './shopping-card.component.html',
   styleUrl: './shopping-card.component.css'
 })
@@ -42,6 +42,13 @@ export class ShoppingCardComponent implements OnInit {
       this.loudUserData()
     })
 
+  }
+
+  checkOut(){
+    this.userService.clearShopCard().subscribe((updatedUser)=>{
+      this.user = updatedUser;              
+      this.router.navigate(['/order-completed'])
+    })
   }
 }
 

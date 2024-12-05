@@ -1,5 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { imageUrlValidator } from '../utils/imageUrl.validator';
 
 @Directive({
   selector: '[appImageUrl]',
@@ -12,14 +13,13 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   ]
 })
 export class ImageUrlDirective implements Validator {
-
+  @Input() appImageUrl: string[] = []
   constructor() { }
 
   validate(control: AbstractControl): ValidationErrors | null {
+    const validatorFn = imageUrlValidator();
+    return validatorFn(control)
 
-    const pattern = /^https?:\/\//i;
-    const value = control.value;
 
-    return control.value && pattern.test(value) ? null : { invalidImageUrl: true }
   }
 }

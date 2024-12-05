@@ -16,7 +16,7 @@ import { AuthComponent } from '../../auth/auth.component';
 export class GiftDetailsComponent implements OnInit {
   gift = {} as Gift;
   isOwner = false;
-  isBougth = false;
+  //isBougth = false;
   isLiked = false;
 
   private giftId!: string;
@@ -45,7 +45,7 @@ export class GiftDetailsComponent implements OnInit {
       this.userService.getUserProfile().subscribe((user) => {
         this.isOwner = user._id == this.gift.userId;
 
-        this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
+        //this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
         this.isLiked = this.gift.likesList.some(x => x.toString() == user._id);
       });
     })
