@@ -107,8 +107,13 @@
 .remove-item:hover {
     background-color: #c0392b;
 }
+.empty-div {
+    display: flex;
+    justify-content: center;
+ 
+}
 .empty {
-    text-align: center;
+    width: 400px;
 }
 
 /* Cart Summary */

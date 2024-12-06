@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { AuthUser } from '../../types/user';
 
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadData()
@@ -83,5 +83,13 @@ export class ProfileComponent implements OnInit {
     e.preventDefault()
     this.toggleEditMode()
   }
+
+
+  logout() {
+    this.userService.logout().subscribe(() => {
+      this.router.navigate(['/'])
+    })
+  }
+
 
 }

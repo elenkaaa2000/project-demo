@@ -8,7 +8,10 @@
             <p>Manage your selected gifts below.</p>
         </div>
         @if (!user?.boughtGifts?.length) {
-        <p class="empty">Your shopping cart is empty</p>
+        <div class="empty-div">
+            <img class="empty" src="empty-shop.jpg" alt="">
+        </div>
+
         }@else {
         @for (gift of user?.boughtGifts; track $index) {
         <div class="cart-items">
@@ -18,6 +21,7 @@
                     <h4>{{gift.title}}</h4>
                     <p class="price">${{gift.price}}</p>
                 </div>
+
                 <div class="btn">
                     <button class="remove">
                         <a (click)="remove(gift._id)">Remove</a>
@@ -28,7 +32,7 @@
         }
         }
 
-
+        @if(user?.boughtGifts?.length){
         <div class="cart-summary">
             <p>Total: <span class="total-price">${{totalPrice}}</span></p>
             <div class="btn">
@@ -37,12 +41,16 @@
                 </button>
             </div>
         </div>
+        } @else {
+        <div class="btn">
+            <button>
+                <a routerLink="/catalog">Go to Catalog</a>
+            </button>
+        </div>
+        }
+
 
     </div>
 
     }
-
-
-
-
 </div>

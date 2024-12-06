@@ -4,4 +4,4 @@
 ----4. Errors
 ----5. Edit profile functionality
 6. Pipe(optionals)
-7. Wishlist
+----7. Wishlist
