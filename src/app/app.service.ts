@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Gift } from './types/gift';
+//import { throwError, Observable, catchError } from 'rxjs';
 
 
 @Injectable({
@@ -25,7 +26,8 @@ export class AppService {
   }
 
   getGiftById(giftId: string) {
-    return this.http.get<Gift>('/api/gifts/details/' + giftId)
+    return this.http.get<Gift>('/api/gifts/details/' + giftId);
+    
   }
 
   updateGiftById(giftId: string, title: string, category: string, description: string, price: string, delivery: string, imageUrl: string) {
@@ -44,4 +46,6 @@ export class AppService {
   buyGift(giftId:string){
     return this.http.put<Gift>(`/api/gifts/${giftId}/buy`, null)
   }
+
 }
+

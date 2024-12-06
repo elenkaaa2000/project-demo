@@ -6,6 +6,7 @@ const {
 
 const utils = require('../utils');
 const { authCookieName } = require('../app-config');
+const { log } = require('@angular-devkit/build-angular/src/builders/ssr-dev-server');
 
 const bsonToJson = (data) => { return JSON.parse(JSON.stringify(data)) };
 const removePassword = (data) => {
@@ -55,6 +56,7 @@ function login(req, res, next) {
             if (!match) {
                 res.status(401)
                     .send({ message: 'Wrong email or password' });
+
                 return
             }
             user = bsonToJson(user);
@@ -119,11 +121,25 @@ function removeItemFromCard(req, res, next) {
         .catch(next)
 }
 
+function removeItemFromWishlist(req, res, next) {
+    const { _id: userId } = req.user;
+    const { giftId } = req.params;
+
+    Promise.all([
+        userModel.findByIdAndUpdate({ _id: userId }, { $pull: { likedGifts: giftId } }),
+        giftModel.findByIdAndUpdate(giftId, { $pull: { likesList: userId } })
+    ])
+        .then((updated) => {
+            res.status(200).json(updated)
+        })
+        .catch(next)
+}
+
 function clearShopCard(req, res, next) {
     const { _id: userId } = req.user;
 
-    
-    userModel.findByIdAndUpdate({ _id: userId }, { $set: { boughtGifts: [] } }, {new: true})
+
+    userModel.findByIdAndUpdate({ _id: userId }, { $set: { boughtGifts: [] } }, { new: true })
         .then((updatedUser) => {
             res.status(200).json(updatedUser)
         }).catch(next)
@@ -137,5 +153,7 @@ module.exports = {
     getProfileInfo,
     editProfileInfo,
     removeItemFromCard,
-    clearShopCard
+    clearShopCard,
+    removeItemFromWishlist
+
 }

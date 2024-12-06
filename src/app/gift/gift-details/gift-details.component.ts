@@ -4,21 +4,23 @@ import { Gift } from '../../types/gift';
 import { AppService } from '../../app.service';
 import { UserService } from '../../user/user.service';
 import { AuthComponent } from '../../auth/auth.component';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 
 @Component({
   selector: 'app-gift-details',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, LoaderComponent],
   templateUrl: './gift-details.component.html',
   styleUrl: './gift-details.component.css'
 })
 export class GiftDetailsComponent implements OnInit {
   gift = {} as Gift;
   isOwner = false;
-  //isBougth = false;
+  isBougth = false;
   isLiked = false;
-
+  isLoading = true;
+  
   private giftId!: string;
 
   get isLoggedIn(): boolean {
@@ -41,31 +43,40 @@ export class GiftDetailsComponent implements OnInit {
     this.giftId = this.route.snapshot.params['giftId'];
     this.appService.getGiftById(this.giftId).subscribe((gift) => {
       this.gift = gift
+      this.isLoading = false
+    });
+  }
 
-      this.userService.getUserProfile().subscribe((user) => {
-        this.isOwner = user._id == this.gift.userId;
+  checkUser() {
+    this.userService.getUserProfile().subscribe((user) => {
 
-        //this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
-        this.isLiked = this.gift.likesList.some(x => x.toString() == user._id);
-      });
-    })
+      this.isOwner = user._id == this.gift.userId;
+
+      this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
+      this.isLiked = this.gift.likesList.some(x => x.toString() == user._id);
+
+    });
+
+    this.loadGiftDetails()
   }
 
   deleteGift() {
 
-    this.appService.deleteGiftById(this.giftId).subscribe(()=>{
+    this.appService.deleteGiftById(this.giftId).subscribe(() => {
       this.router.navigate(['/catalog'])
     });
   }
 
   likeGift() {
     this.appService.likeGift(this.giftId).subscribe(() => {
+      this.isLiked = true;
       this.loadGiftDetails()
     })
   }
 
   buyGift() {
     this.appService.buyGift(this.giftId).subscribe(() => {
+      this.isBougth = true;
       this.loadGiftDetails()
     })
   }

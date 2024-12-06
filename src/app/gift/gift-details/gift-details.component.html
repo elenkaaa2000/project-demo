@@ -1,4 +1,8 @@
+@if(isLoading){
+<app-loader />
+}@else {
 <div class="container">
+
     <div class="image">
         <img src="{{gift.imageUrl}}" alt="">
     </div>
@@ -19,20 +23,20 @@
             @if (isLiked) {
             <p class="message">You have already added the gift to wishlist</p>
             }@else {
-            <button class="btn"><a (click)="likeGift()">Like gift</a></button>
+            <button class="btn"><a (click)="likeGift()">Add to wishlist</a></button>
             }
 
-            <!--@if (isBougth) {
+            @if (isBougth) {
             <p class="message">You have already added the gift to shopping cart</p>
-            } @else {-->
+            } @else {
 
             <button class="btn"><a (click)="buyGift()">Buy gift</a></button>
-            
-        }
 
+            }
+            }
         </div>
         }
 
     </div>
-
 </div>
+}

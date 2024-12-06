@@ -1,0 +1,48 @@
+<div class="container">
+    @if(isLoading){
+    <app-loader />
+    }@else {
+    <div class="cart-container">
+        <div class="cart-header">
+            <h2>Your Shopping Cart</h2>
+            <p>Manage your selected gifts below.</p>
+        </div>
+        @if (!user?.boughtGifts?.length) {
+        <p class="empty">Your shopping cart is empty</p>
+        }@else {
+        @for (gift of user?.boughtGifts; track $index) {
+        <div class="cart-items">
+            <div class="cart-item">
+                <img src="{{gift.imageUrl}}" alt="Gift 1">
+                <div class="item-details">
+                    <h4>{{gift.title}}</h4>
+                    <p class="price">${{gift.price}}</p>
+                </div>
+                <div class="btn">
+                    <button class="remove">
+                        <a (click)="remove(gift._id)">Remove</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+        }
+
+
+        <div class="cart-summary">
+            <p>Total: <span class="total-price">${{totalPrice}}</span></p>
+            <div class="btn">
+                <button>
+                    <a (click)="checkOut()">Proceed to Checkout</a>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    }
+
+
+
+
+</div>

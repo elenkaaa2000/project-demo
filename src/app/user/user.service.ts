@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment.development';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthUser, User } from '../types/user';
 
 
@@ -15,14 +15,14 @@ export class UserService {
   user: AuthUser | null = null
 
   get isLogged(): boolean {
-    return !!this.user 
+    return !!this.user
   }
 
   constructor(private http: HttpClient) {
-    this.user$.subscribe((user)=>{
+    this.user$.subscribe((user) => {
       return this.user = user
     })
-   }
+  }
 
   register(username: string, email: string, tel: string, password: string, rePassword: string) {
     return this.http
@@ -42,15 +42,27 @@ export class UserService {
       .pipe(tap((user) => this.user$$.next(user)))
   }
 
-  logout(){
-    return this.http.post('/api/logout', {}).pipe(tap((user)=>this.user$$.next(null)))
+  logout() {
+    return this.http.post('/api/logout', {}).pipe(tap((user) => this.user$$.next(null)))
   }
 
- removeItemFromCard(id:string){
-  return this.http.put<AuthUser>(`/api/users/profile/${id}`, {})
- }
+  editProfile(username: string, email: string, tel: string) {
+    return this.http
+      .put<AuthUser>('/api/users/profile', { username, email, tel })
+      .pipe(tap((user) => this.user$$.next(user)))
+  }
 
- clearShopCard(){
-  return this.http.put<AuthUser>('/api/users/', {})
- }
+  removeItemFromCard(id: string) {
+    return this.http.put<AuthUser>(`/api/users/profile/${id}/shop-cartRemove`, {})
+  }
+  removeItemFromWishlist(id: string) {
+    return this.http.put<AuthUser>(`/api/users/profile/${id}/wishlistRemove`, {})
+  }
+
+  clearShopCard() {
+    return this.http.put<AuthUser>('/api/users/', {})
+  }
+
+
+
 }

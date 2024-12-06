@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { ErrorMsgService } from '../../shared/error-msg/error-msg.service';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,12 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  errorMessage = ''
+  constructor(private userService: UserService, private router: Router, private errorMsgService: ErrorMsgService) { }
 
-  constructor(private userService: UserService, private router: Router) { }
+  ngOnInit(): void {
+  }
 
   login(form: NgForm) {
     if (form.invalid) {
@@ -24,7 +28,6 @@ export class LoginComponent {
     this.userService.login(email, password).subscribe(() => {
       this.router.navigate(['/'])
     })
-
 
   }
 }

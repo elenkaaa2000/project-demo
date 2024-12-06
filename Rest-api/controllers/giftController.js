@@ -35,6 +35,7 @@ function getGiftbyId(req, res, next) {
     giftModel.findById(giftId)
         .then(gift => res.json(gift))
         .catch(next);
+        
 }
 
 
@@ -98,7 +99,7 @@ async function like(req, res, next) {
     Promise.all([
         giftModel.updateOne({ _id: giftId }, { $addToSet: { likesList: userId } }),
         userModel.findOneAndUpdate({ _id: userId }, { $push: { likedGifts: giftId } })
-    ]).then(()=>res.status(200).json({ message: 'Successful!' })).catch(next)
+    ]).then(() => res.status(200).json({ message: 'Successful!' })).catch(next)
 }
 
 function buy(req, res, next) {
@@ -110,7 +111,7 @@ function buy(req, res, next) {
     Promise.all([
         giftModel.updateOne({ _id: giftId }, { $addToSet: { buyingList: userId } }),
         userModel.findOneAndUpdate({ _id: userId }, { $push: { boughtGifts: giftId } })
-    ]).then(()=>res.status(200).json({ message: 'Successful!' })).catch(next)
+    ]).then(() => res.status(200).json({ message: 'Successful!' })).catch(next)
 }
 
 

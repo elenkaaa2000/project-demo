@@ -168,4 +168,29 @@ a {
     font-size: 1.05rem;
   }
 }                                         
-            
+    
+
+.shop-cart {
+  position: relative;
+}
+
+/* Style for the cart icon image */
+.shop-cart-icon {
+  width: 30px; /* Adjust size as needed */
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  
+}
+
+@media (max-width: 768px) {
+  .shop-cart {
+    margin: 5px 0;
+  }
+
+  .shop-cart-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+}

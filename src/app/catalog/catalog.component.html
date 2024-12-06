@@ -5,22 +5,27 @@
         <h1>Catalog</h1>
     </div>
 
-   
+   @if(isLoading){
+    <app-loader />
+   }
+   @else {
     @for (gift of gifts; track $index) {
-    <div class="product">
-        <div class="product-img">
-            <img src="{{gift.imageUrl}}" alt="Gift Image 1">
+        <div class="product">
+            <div class="product-img">
+                <img src="{{gift.imageUrl}}" alt="Gift Image 1">
+            </div>
+            <div class="product-info">
+                <h6 class="title">{{gift.title}}</h6>
+                <p class="price">${{gift.price}}</p>
+            </div>
+            <div class="btn">
+                <button>
+                    <a routerLink="/gifts/details/{{gift._id}}">Details</a>
+                </button>
+            </div>
         </div>
-        <div class="product-info">
-            <h6 class="title">{{gift.title}}</h6>
-            <p class="price">${{gift.price}}</p>
-        </div>
-        <div class="btn">
-            <button>
-                <a routerLink="/gifts/details/{{gift._id}}">Details</a>
-            </button>
-        </div>
-    </div>
-    }
+        }
+   }
+    
 
 </div>

@@ -1,0 +1,41 @@
+<div class="container">
+
+
+    <div class="page-title">
+        <h1>Wishlist</h1>
+    </div>
+
+    @if(isLoading){
+    <app-loader />
+    }
+    @else {
+    @if(user?.likedGifts?.length){
+    @for (item of user?.likedGifts; track $index) {
+    <div class="product">
+        <div class="product-img">
+            <img src="{{item.imageUrl}}" alt="Gift Image 1">
+        </div>
+        <div class="product-info">
+            <h6 class="title">{{item.title}}</h6>
+            <p class="price">${{item.price}}</p>
+        </div>
+        <div class="btn">
+            <button>
+                <a routerLink="/gifts/details/{{item._id}}">Details</a>
+            </button>
+        </div>
+        <div class="btn">
+            <button>
+                <a (click)="removeItem(item._id)">Remove</a>
+            </button>
+        </div>
+    </div>
+    }
+    } @else {
+    <img src="empty.jpg" alt="">
+    }
+    }
+
+
+
+</div>

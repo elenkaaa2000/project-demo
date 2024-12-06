@@ -13,6 +13,9 @@
     </div>
 
     <h4 class="gifts-title">New Arrivals</h4>
+    @if(isLoading){
+    <app-loader />
+    } @else {
     <div class="gifts">
 
         @for (gift of gifts; track $index) {
@@ -30,7 +33,8 @@
                 </button>
             </div>
         </div>
-        }        
-
+        }
+    
     </div>
+    }
 </div>

@@ -1,24 +1,95 @@
+@if(isLoading){
+<app-loader />
+}@else {
+
 <div class="container">
     <div class="profile">
         <div class="title">
             <img src='user.jpg' alt="">
             <h3>Profile page</h3>
+            @if(!isEditMode){
             <div class="info">
                 <li>Username: {{user?.username}}</li>
                 <li>Email: {{user?.email}}</li>
                 <li>Mobile phone: {{user?.tel}}</li>
                 <div class="btn">
                     <button>
-                        <a routerLink="">Edit profile</a>
+                        <a (click)="toggleEditMode()">Edit profile</a>
                     </button>
                     <button>
-                        <a routerLink="/shop-card">Shopping card</a>
+                        <a routerLink="/shop-cart">Shopping card</a>
                     </button>
                     <button>
                         <a routerLink="/wishlist">Wishlist</a>
                     </button>
                 </div>
             </div>
+            }@else {
+            <div class="register-form">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="input">
+                        <label for="username">Username: </label>
+                        <input [class]="inputRequired('username') || inputCorrectLength('username') ? 'invalid' : ''" type="text" name="username" formControlName="username">
+                    </div>
+                    @if(usernameControl?.touched){
+                    <div>
+                        @if(usernameControl?.errors?.['required']){
+                        <p class="errorMsg">Username is required</p>
+                        }
+
+                        @if(usernameControl?.errors?.['minlength']){
+                        <p class="errorMsg">Username must be at least 5 characters</p>
+                        }
+                    </div>
+                    }
+
+                    <div class="input">
+                        <label for="email">Email: </label>
+                        <input  [class]="inputRequired('email') || inputCorrectLength('email') || correctEmail ? 'invalid' : ''" type="text" name="email" formControlName="email">
+                    </div>
+                    @if(emailControl?.touched){
+                    <div>
+                        @if(emailControl?.errors?.['required']){
+                        <p class="errorMsg">Email address is required</p>
+                        }
+
+                        @if(emailControl?.errors?.['minlength']){
+                        <p class="errorMsg">Email address must be at least 5 characters</p>
+                        }
+
+                        @if(emailControl?.errors?.['email']){
+                        <p class="errorMsg">Incorrect email adress</p>
+                        }
+                    </div>
+                    }
+
+
+                    <div class="input">
+                        <label for="password">Tel: </label>
+                        <input [class]="inputRequired('tel') ? 'invalid' : ''" type="text" name="tel" formControlName="tel">
+                    </div>
+
+                    @if(telControl?.touched){
+                    <div>
+                        @if(telControl?.errors?.['required']){
+                        <p class="errorMsg">Phone number is required</p>
+                        }
+                    </div>
+                    }
+
+                    <div class="btn">
+                        <button>
+                            <a (click)="cancel($event)">Cancel</a>
+                        </button>
+                        <button [disabled]="form.invalid"                    
+                        >
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            }
         </div>
     </div>
 
@@ -46,3 +117,4 @@
         </div>
     </div>
 </div>
+}
