@@ -20,7 +20,7 @@ export class GiftDetailsComponent implements OnInit {
   isBougth = false;
   isLiked = false;
   isLoading = true;
-  
+
   private giftId!: string;
 
   get isLoggedIn(): boolean {
@@ -45,19 +45,20 @@ export class GiftDetailsComponent implements OnInit {
       this.gift = gift
       this.isLoading = false
     });
+    this.checkUser()
   }
 
   checkUser() {
     this.userService.getUserProfile().subscribe((user) => {
 
-      this.isOwner = user._id == this.gift.userId;
+      this.isOwner = user._id == this.gift.userId;  
 
       this.isBougth = this.gift.buyingList.some(x => x.toString() == user._id);
       this.isLiked = this.gift.likesList.some(x => x.toString() == user._id);
 
     });
 
-    this.loadGiftDetails()
+
   }
 
   deleteGift() {

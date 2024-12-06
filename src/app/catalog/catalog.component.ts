@@ -3,11 +3,12 @@ import { AppService } from '../app.service';
 import { Gift } from '../types/gift';
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../shared/loader/loader.component';
+import { SliceTitlePipe } from '../shared/slice-title.pipe';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [RouterLink,LoaderComponent],
+  imports: [RouterLink,LoaderComponent, SliceTitlePipe],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.css'
 })

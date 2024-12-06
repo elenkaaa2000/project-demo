@@ -3,11 +3,12 @@ import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { AuthUser } from '../../../types/user';
 import { UserService } from '../../user.service';
 import { RouterLink } from '@angular/router';
+import { SliceTitlePipe } from '../../../shared/slice-title.pipe';
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [LoaderComponent, RouterLink],
+  imports: [LoaderComponent, RouterLink, SliceTitlePipe],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'
 })

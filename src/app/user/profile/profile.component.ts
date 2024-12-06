@@ -5,11 +5,12 @@ import { AuthUser } from '../../types/user';
 import { Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SliceTitlePipe } from '../../shared/slice-title.pipe';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterLink, LoaderComponent, ReactiveFormsModule],
+  imports: [RouterLink, LoaderComponent, ReactiveFormsModule, SliceTitlePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

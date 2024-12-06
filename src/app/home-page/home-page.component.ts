@@ -5,11 +5,12 @@ import { Gift } from '../types/gift';
 
 import { ErrorMsgService } from '../shared/error-msg/error-msg.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
+import { SliceTitlePipe } from '../shared/slice-title.pipe';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [RouterLink, LoaderComponent],
+  imports: [RouterLink, LoaderComponent, SliceTitlePipe],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
