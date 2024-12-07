@@ -87,11 +87,11 @@
                 }
 
                 <label for="imageUrl">Image URL:</label>
-                <input type="url" id="imageUrl" name="imageUrl" ngModel #inputImageUrl="ngModel" required [appImageUrl]="[]">
+                <input type="url" id="imageUrl" name="imageUrl" ngModel #inputImageUrl="ngModel" required appImageUrl>
 
                 @if(inputImageUrl.touched){
                     <div>                      
-                        @if(inputImageUrl.errors?.['invalidImageUrl']){
+                        @if(inputImageUrl.errors?.['imageUrlValidator'] || inputImageUrl.errors?.['required']){
                             <p class="errorMsg">Invalid URL address</p> 
                         }
                     </div>

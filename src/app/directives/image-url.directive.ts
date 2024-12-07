@@ -13,7 +13,7 @@ import { imageUrlValidator } from '../utils/imageUrl.validator';
   ]
 })
 export class ImageUrlDirective implements Validator {
-  @Input() appImageUrl: string[] = []
+ @Input() appImageUrl: string | undefined
   constructor() { }
 
   validate(control: AbstractControl): ValidationErrors | null {

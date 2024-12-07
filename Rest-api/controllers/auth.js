@@ -6,7 +6,7 @@ const {
 
 const utils = require('../utils');
 const { authCookieName } = require('../app-config');
-const { log } = require('@angular-devkit/build-angular/src/builders/ssr-dev-server');
+
 
 const bsonToJson = (data) => { return JSON.parse(JSON.stringify(data)) };
 const removePassword = (data) => {
@@ -14,65 +14,85 @@ const removePassword = (data) => {
     return userData
 }
 
-function register(req, res, next) {
+async function register(req, res, next) {
     const { tel, email, username, password, repeatPassword } = req.body;
 
-    return userModel.create({ tel, email, username, password })
-        .then((createdUser) => {
-            createdUser = bsonToJson(createdUser);
-            createdUser = removePassword(createdUser);
 
-            const token = utils.jwt.createToken({ id: createdUser._id });
-            if (process.env.NODE_ENV === 'production') {
-                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
-            } else {
-                res.cookie(authCookieName, token, { httpOnly: true })
-            }
-            res.status(200)
-                .send(createdUser);
-        })
-        .catch(err => {
-            if (err.name === 'MongoError' && err.code === 11000) {
-                let field = err.message.split("index: ")[1];
-                field = field.split(" dup key")[0];
-                field = field.substring(0, field.lastIndexOf("_"));
+    try {
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            return res.status(409).send({ message: 'Email is already registered' });
+        }
 
-                res.status(409)
-                    .send({ message: `This ${field} is already registered!` });
-                return;
-            }
-            next(err);
-        });
+        // Create the user
+        let createdUser = await userModel.create({ tel, email, username, password });
+
+        // Remove sensitive data
+        createdUser = bsonToJson(createdUser);
+        createdUser = removePassword(createdUser);
+
+        // Generate JWT token
+        const token = utils.jwt.createToken({ id: createdUser._id });
+
+        // Set the cookie based on environment
+        const cookieOptions =
+            process.env.NODE_ENV === 'production'
+                ? { httpOnly: true, sameSite: 'none', secure: true }
+                : { httpOnly: true };
+
+        res.cookie(authCookieName, token, cookieOptions);
+
+        // Send success response
+        res.status(200).send(createdUser);
+    } catch (error) {
+        console.error('Error during registration:', error);
+        next(error); // Pass the error to the global error handler
+    }
 }
+
+
+
 
 function login(req, res, next) {
     const { email, password } = req.body;
 
-    userModel.findOne({ email })
-        .then(user => {
-            return Promise.all([user, user ? user.matchPassword(password) : false]);
-        })
-        .then(([user, match]) => {
-            if (!match) {
-                res.status(401)
-                    .send({ message: 'Wrong email or password' });
-
-                return
+    userModel
+        .findOne({ email })
+        .then((user) => {
+            if (!user) {
+                // If no user is found with the given email
+                res.status(401).send({ message: 'Wrong email or password' });
+                return Promise.reject('Authentication failed'); // Reject to stop further processing
             }
-            user = bsonToJson(user);
-            user = removePassword(user);
-
-            const token = utils.jwt.createToken({ id: user._id });
-
-            if (process.env.NODE_ENV === 'production') {
-                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
-            } else {
-                res.cookie(authCookieName, token, { httpOnly: true })
-            }
-            res.status(200)
-                .send(user);
+            return Promise.all([user, user.matchPassword(password)]);
         })
-        .catch(next);
+        .then(([user, isMatch]) => {
+            if (!isMatch) {
+                // If the password doesn't match
+                res.status(401).send({ message: 'Wrong email or password' });
+                return;
+            }
+
+            // Prepare the user object and token
+            const sanitizedUser = removePassword(bsonToJson(user));
+            const token = utils.jwt.createToken({ id: sanitizedUser._id });
+
+            // Set the token as a cookie
+            const cookieOptions =
+                process.env.NODE_ENV === 'production'
+                    ? { httpOnly: true, sameSite: 'none', secure: true }
+                    : { httpOnly: true };
+
+            res.cookie(authCookieName, token, cookieOptions);
+
+            // Send successful response
+            res.status(200).send(sanitizedUser);
+        })
+        .catch((err) => {
+            // Catch any other errors and pass them to the error handler
+            console.error('Error during login:', err);
+            next(err);
+        });
 }
 
 function logout(req, res) {

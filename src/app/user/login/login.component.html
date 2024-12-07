@@ -33,6 +33,13 @@
                 </div>
                 }
 
+                @if(errorMessage){
+                    <div class="error-message">
+                        {{errorMessage}}
+                    </div>
+    
+                    }
+
                 <div class="btn-div">
                     <button [disabled]="form.invalid" class="register-btn">Login</button>
                 </div>

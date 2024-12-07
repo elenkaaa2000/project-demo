@@ -148,3 +148,8 @@
         font-size: 16px;
     }
 }
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+  }

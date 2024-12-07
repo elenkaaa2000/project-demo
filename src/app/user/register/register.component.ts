@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-
+  errorMessage: string | null = null;
   constructor(private userService: UserService, private router: Router) { }
   form = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -53,6 +53,7 @@ export class RegisterComponent {
   }
 
   register() {
+    this.errorMessage = ''
     if (this.form.invalid) {
       console.log('Invalid form')
       return
@@ -60,10 +61,17 @@ export class RegisterComponent {
 
     const { username, email, tel, passGroup: { password, rePassword } = {} } = this.form.value;
     this.userService
-    .register(username!, email!, tel!, password!, rePassword!)
-    .subscribe(() => {
-      this.router.navigate(['/'])
-    })
+      .register(username!, email!, tel!, password!, rePassword!)
+      .subscribe({
+        next: (response) => {
+          console.log('Registration successful:', response);
+          this.router.navigate(['/'])
+        },
+        error: (error) => {
+          this.errorMessage = error.message;       
+        }
+
+      })
 
 
   }

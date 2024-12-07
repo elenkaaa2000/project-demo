@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
 import { Gift } from '../types/gift';
 
-import { ErrorMsgService } from '../shared/error-msg/error-msg.service';
+
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { SliceTitlePipe } from '../shared/slice-title.pipe';
 
@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
   gifts: Gift[] = []
   isLoading = true
 
-  constructor(private apiService: AppService, private errorMsg: ErrorMsgService) { }
+  constructor(private apiService: AppService) { }
 
   ngOnInit(): void {
     this.apiService.getLastThree(3).subscribe(data => {

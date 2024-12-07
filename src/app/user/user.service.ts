@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../environment/environment.development';
+
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthUser, User } from '../types/user';
 
@@ -27,13 +27,14 @@ export class UserService {
   register(username: string, email: string, tel: string, password: string, rePassword: string) {
     return this.http
       .post<AuthUser>('/api/register', { username, email, tel, password, rePassword })
-      .pipe(tap((user) => this.user$$.next(user)))
+      .pipe(tap((user) => this.user$$.next(user)),
+        catchError((error) => this.handleError(error)))
   }
 
   login(email: string, password: string) {
     return this.http
       .post<AuthUser>('/api/login', { email, password })
-      .pipe(tap((user) => this.user$$.next(user)))
+      .pipe(tap((user) => this.user$$.next(user)), catchError((error) => this.handleError(error)))
   }
 
   getUserProfile() {
@@ -63,6 +64,19 @@ export class UserService {
     return this.http.put<AuthUser>('/api/users/', {})
   }
 
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An unknown error occurred!';
 
+    if (error.status === 409) {
+      errorMessage = 'Email is already registered.';
+    } else if (error.status === 500) {
+      errorMessage = 'Internal server error. Please try again later.';
+    } else if (error.status === 401){
+      errorMessage = 'Wrong email or password!'
+    }
 
+    return throwError(() => new Error(errorMessage));
+  }
 }
+
+

@@ -23,7 +23,7 @@ export class EditGiftComponent implements OnInit {
     description: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     price: new FormControl('', [Validators.required, Validators.min(1)]),
     delivery: new FormControl('', [Validators.required, Validators.min(1)]),
-    imageUrl: new FormControl('', [Validators.required, imageUrlValidator])
+    imageUrl: new FormControl('', [Validators.required, imageUrlValidator()])
   })
 
   titleControl = this.form.get('title');

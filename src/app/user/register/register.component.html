@@ -4,6 +4,7 @@
             <h2 class="title">Register</h2>
             <p>Join our team! Sell you gifts and make people happy!</p>
         </div>
+
         <div class="register-form">
             <form [formGroup]="form" (ngSubmit)="register()">
                 <div class="username">
@@ -45,6 +46,12 @@
                 </div>
                 }
 
+                @if(errorMessage){
+                <div class="error-message">
+                    {{errorMessage}}
+                </div>
+
+                }
 
                 <div class="tel">
                     <label for="tel">Mobile phone</label>
@@ -75,8 +82,8 @@
                         }
 
                         @if(passGroup?.errors?.['macthPasswordsValidator']){
-                            <p class="errorMsg">Passwords don't match</p>
-                            }
+                        <p class="errorMsg">Passwords don't match</p>
+                        }
                     </div>
                     }
 
@@ -90,7 +97,7 @@
                     <div>
                         @if(rePassControl?.errors?.['required']){
                         <p class="errorMsg">Repeat password, please!</p>
-                        }                       
+                        }
                     </div>
                     }
 

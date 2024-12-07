@@ -13,6 +13,8 @@ import { GiftDetailsComponent } from './gift/gift-details/gift-details.component
 import { ShoppingCardComponent } from './user/profile/shopping-card/shopping-cart.component';
 import { CheckoutComponent } from './user/profile/checkout/checkout.component';
 import { WishlistComponent } from './user/profile/wishlist/wishlist.component';
+import { AuthGuard } from './utils/auth.guard';
+
 
 
 
@@ -20,19 +22,19 @@ export const routes: Routes = [
     { path: '', component: HomePageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'shop-cart', component: ShoppingCardComponent },
-    { path: 'wishlist', component: WishlistComponent },
-    { path: 'order-completed', component: CheckoutComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    { path: 'shop-cart', component: ShoppingCardComponent, canActivate: [AuthGuard] },
+    { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
+    { path: 'order-completed', component: CheckoutComponent, canActivate: [AuthGuard] },
     { path: 'about', component: AboutPageComponent },
     { path: 'catalog', component: CatalogComponent },
     {
         path: 'gifts', children: [
-            { path: 'details/:giftId', component: GiftDetailsComponent },
-            { path: ':giftId/edit', component: EditGiftComponent },
+            { path: 'details/:giftId', component: GiftDetailsComponent},
+            { path: ':giftId/edit', component: EditGiftComponent, canActivate: [AuthGuard]},
         ]
     },
-    { path: 'create', component: CreateGiftComponent },
+    { path: 'create', component: CreateGiftComponent, canActivate: [AuthGuard]},
 
     { path: '404', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/404', pathMatch: 'full' }

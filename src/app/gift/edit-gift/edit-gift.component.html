@@ -91,7 +91,7 @@
 
                 @if(imageUrlControl?.touched){
                     <div>                      
-                        @if(imageUrlControl?.errors?.['imageUrlValidator']){
+                        @if(imageUrlControl?.errors?.['imageUrlValidator'] || imageUrlControl?.errors?.['required']){
                             <p class="errorMsg">Invalid URL address</p> 
                         }
                     </div>

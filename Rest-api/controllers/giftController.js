@@ -33,9 +33,17 @@ function getGiftbyId(req, res, next) {
     const { giftId } = req.params;
 
     giftModel.findById(giftId)
-        .then(gift => res.json(gift))
-        .catch(next);
-        
+        .then((gift) => {
+            if (!gift) {
+                es.status(404).send({ message: 'Gift not found' });
+            }
+            res.status(200).json(gift)
+        })
+        .catch((err) => {
+            console.error('Error retrieving gift:', err);
+            next(err);
+        });
+
 }
 
 
