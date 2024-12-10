@@ -13,6 +13,7 @@
     padding: 40px;
 }
 
+
 .about-content h1 {
     font-size: 32px;
     color: #7257c2;
@@ -21,13 +22,16 @@
 }
 
 .about-content h1 span {
-   color:  #9c32b6;
+    color: #9c32b6;
     font-weight: bold;
 }
 
+
+
 .about-content h2 {
     font-size: 24px;
-    color:#9c32b6;
+    font-weight: bold;
+    color: #9c32b6;
     margin-top: 30px;
     margin-bottom: 15px;
 }
@@ -73,4 +77,47 @@
     .about-content p {
         font-size: 15px;
     }
+}
+
+/* Styling the unordered list */
+ul {
+    list-style-type: none;
+    font-size: 16px;
+    color: #7257c2;
+    line-height: 1.8;
+    display: flex;
+    gap: 20px;
+}
+
+/* Styling the list items */
+ul li {
+    background: #f9f9f9;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+
+}
+
+
+ul li:hover {
+    background-color: #e6f7ff;
+    cursor: pointer;
+}
+
+
+ul li:nth-child(1)::before {
+    content: "🏠 ";
+
+}
+
+ul li:nth-child(2)::before {
+    content: "✉️ ";
+
+}
+
+ul li:nth-child(3)::before {
+    content: "📞 ";
+
 }

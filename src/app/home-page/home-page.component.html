@@ -6,9 +6,12 @@
 
     <div class="mainText">
 
-        <p>Browse our <a routerLink="/catalog">Catalog</a> to find a wide range of gifts for any type of occasion. Also
-            you can <a routerLink="/login">Join</a> our team and make
+        <p>Browse our <a routerLink="/catalog">Catalog</a> to find a wide range of gifts for any type of occasion.</p>
+        @if(!isLoggedIn){
+        <p>Also you can <a routerLink="/login">Join</a> our team and make
             people happy with your handmade gifts </p>
+        }
+
 
     </div>
 
@@ -24,7 +27,7 @@
                 <img src="{{gift.imageUrl}}" alt="">
             </div>
             <div class="product-info">
-                <h6 class="title">{{gift.title | sliceTitle: 10}}</h6>                
+                <h6 class="title">{{gift.title | sliceTitle: 10}}</h6>
                 <span class="price">${{gift.price}}</span>
             </div>
             <div class="btn">
@@ -34,7 +37,7 @@
             </div>
         </div>
         }
-    
+
     </div>
     }
 </div>

@@ -12,28 +12,35 @@
             <ul class="navbar-nav">
                 <li><a routerLink="/">Home</a></li>
                 <li><a routerLink="/catalog">Catalog</a></li>
+                <li><a routerLink="/search">Search</a></li>
 
-                <li><a routerLink="/about">About</a></li>
                 @if(isLogged){
                 <li><a routerLink="/create">Create</a></li>
-                <li><a routerLink="/profile">Profile</a></li>
-               
+                <li><a routerLink="/profile">
+                        <img src="account.png" alt="" class="shop-cart-icon">
+                    </a></li>
+
                 <li class="shop-cart">
                     <a routerLink="/shop-cart">
-                    <img src="shop-cart.jpg" alt="" class="shop-cart-icon">
-                </a>
+                        <img src="shop-cart.jpg" alt="" class="shop-cart-icon">
+                    </a>
                 </li>
                 <li class="shop-cart">
                     <a routerLink="/wishlist">
-                    <img src="wishlist-1.png" alt="" class="shop-cart-icon">
-                </a>
+                        <img src="wishlist-1.png" alt="" class="shop-cart-icon">
+                    </a>
                 </li>
-                
+                <li class="shop-cart">
+                    <a (click)="logout()">
+                        <img src="logout.png" alt="" class="shop-cart-icon">
+                    </a>
+                </li>
+
                 }@else {
                 <li><a routerLink="/login">Login</a></li>
                 <li><a routerLink="/register">Register</a></li>
                 }
-
+                <!--<li><a routerLink="/about">About</a></li>-->
             </ul>
         </div>
     </div>
