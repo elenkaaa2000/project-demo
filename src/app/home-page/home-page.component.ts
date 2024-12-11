@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
 import { Gift } from '../types/gift';
 
@@ -17,8 +17,9 @@ import { UserService } from '../user/user.service';
 })
 export class HomePageComponent implements OnInit {
   gifts: Gift[] = []
-  isLoading = true
-isLoggedIn = false
+  isLoading = true;
+  isLoggedIn = false;
+
   constructor(private apiService: AppService, private userService: UserService) { }
 
   ngOnInit(): void {

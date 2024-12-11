@@ -18,7 +18,8 @@ export class CatalogComponent implements OnInit {
   constructor(private apiService: AppService) { }
 
   ngOnInit(): void {
-    this.apiService.getAll().subscribe((gifts)=>{         
+    this.apiService.getAll().subscribe((gifts)=>{      
+           
      this.gifts = gifts
      this.isLoading = false
     })
