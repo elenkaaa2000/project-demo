@@ -40,7 +40,7 @@ export class GiftDetailsComponent implements OnInit {
   }
 
   loadGiftDetails() {
-    this.giftId = this.route.snapshot.params['giftId']
+    this.giftId = this.route.snapshot.params['giftId']    
     this.appService.getGiftById(this.giftId).subscribe({
       next: (gift) => {
         this.gift = gift

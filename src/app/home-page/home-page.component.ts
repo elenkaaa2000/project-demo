@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
 import { Gift } from '../types/gift';
 
@@ -27,6 +27,8 @@ export class HomePageComponent implements OnInit {
       this.gifts = data
       this.isLoading = false
       this.isLoggedIn = this.userService.isLogged
+
+      
     });
 
   }
