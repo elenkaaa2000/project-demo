@@ -22,6 +22,7 @@ function getLatestsGifts(req, res, next) {
         .catch(next);
 };
 
+
 function getAllGifts(req, res, next) {
     giftModel.find()
         .populate('userId')
@@ -134,4 +135,5 @@ module.exports = {
     getGiftbyId,
     editGift,
     buy
+ 
 }

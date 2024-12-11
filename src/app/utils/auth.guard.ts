@@ -7,18 +7,22 @@ import {
 } from '@angular/router';
 
 import { UserService } from '../user/user.service';
+import { retry } from 'rxjs';
 
 export const AuthGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
 ) => {
+
     const userService = inject(UserService);
     const router = inject(Router);
 
     if (userService.isLogged) {
+       
         return true;
-    }
+    };
 
     router.navigate(['/login']);
     return false;
+
 };

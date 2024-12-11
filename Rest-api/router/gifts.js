@@ -7,6 +7,7 @@ const { giftController } = require('../controllers')
 
 router.get('/home', giftController.getLatestsGifts);
 router.get('/', giftController.getAllGifts);
+
 router.post('/', auth(), giftController.createGift);
 router.get('/details/:giftId', giftController.getGiftbyId);
 router.delete('/:giftId/delete', auth(), giftController.deleteGift);

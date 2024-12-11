@@ -1,7 +1,0 @@
-----1. Add Loader to Home page, Catalog page, shopping card, profile, details page
-----2. Guard 
-3. Image url directives
-----4. Errors
-----5. Edit profile functionality
-----6. Pipe(sliceTitle)
-----7. Wishlist

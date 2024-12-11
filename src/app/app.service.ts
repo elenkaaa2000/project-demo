@@ -57,5 +57,9 @@ export class AppService {
     return this.http.put<Gift>(`/api/gifts/${giftId}/buy`, null)
   }
 
+  searchGift(query?: string) {
+    return this.http.get<Gift[]>(`api/gifts/search?search=${query}`)
+  }
+
 }
 
