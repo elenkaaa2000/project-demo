@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subscription, tap, throwError } from 'rxjs';
 import { AuthUser, User } from '../types/user';
 
 
@@ -13,13 +13,14 @@ export class UserService {
   private user$ = this.user$$.asObservable();
 
   user: AuthUser | null = null
-
+  userSubscription: Subscription | null = null;
+  
   get isLogged(): boolean {
     return !!this.user
   }
 
   constructor(private http: HttpClient) {
-    this.user$.subscribe((user) => {
+    this.userSubscription = this.user$.subscribe((user) => {
       return this.user = user
     })
   }
@@ -76,6 +77,10 @@ export class UserService {
     }
 
     return throwError(() => new Error(errorMessage));
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
   }
 }
 
